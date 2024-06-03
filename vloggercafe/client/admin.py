@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MasterVideoRecord,UserSignUp,MyProfile
+from client.models import MasterVideoRecord,UserSignUp,MyProfile
 
 @admin.register(MasterVideoRecord)
 class MasterVideoRecord(admin.ModelAdmin):

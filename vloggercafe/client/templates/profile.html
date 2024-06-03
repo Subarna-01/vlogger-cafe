@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <title>VLOGGER CAFÈ</title>
 </head>
+
 <body>
     <header>
         <button id="toggle-sidenav">
@@ -21,8 +23,9 @@
         </form>
     </header>
     <div class="navbar" tabindex="0">
-        <a href="http://127.0.0.1:8000/vloggercafe" class="navbar-item bg-dark text-center"><span class="display-6">Home</span></a>
-        <a href="http://127.0.0.1:8000/vloggercafe/profile/" class="navbar-item bg-dark text-center"><span class="display-6">Profile</span></a>
+        <a href="/vloggercafe" class="navbar-item bg-dark text-center"><span class="display-6">Home</span></a>
+        <a href="/vloggercafe/profile/" class="navbar-item bg-dark text-center"><span
+                class="display-6">Profile</span></a>
         <a class="navbar-item bg-dark text-center"><span class="display-6">Help</span></a>
         <a class="navbar-item bg-dark text-center"><span class="display-6">About</span></a>
         <a class="navbar-item bg-dark text-center"><span class="display-6">Saved</span></a>
@@ -33,38 +36,39 @@
             <div class="sidenav-header">
                 <div class="user-profile-pic">
                     {% if profile_settings %}
-                        {% for x in profile_settings %}
-                            <img src="{{x.myprofilepic.url}}" alt="User profile pic">
-                        {% endfor %}
+                    {% for x in profile_settings %}
+                    <img src="{{x.myprofilepic.url}}" alt="User profile pic">
+                    {% endfor %}
                     {% else %}
-                        <img src="{% static 'images/default-pp.png' %}" alt="User profile pic">
+                    <img src="{% static 'images/default-pp.png' %}" alt="User profile pic">
                     {% endif %}
                 </div>
-                {% if session_info.user_id %}
-                    <span class="text-primary" style="margin: auto;font-size: 70%">Logged In</span>
-                {% endif %}
-             </div>
+            </div>
             <div class="sidenav-item">
-                <a href="http://127.0.0.1:8000/vloggercafe">
-                    <img class="sidenav-item-img" src="{% static 'images/home.ico' %}" alt="home" data-toggle="tooltip" data-placement="top" title="Home">
+                <a href="/vloggercafe">
+                    <img class="sidenav-item-img" src="{% static 'images/home.ico' %}" alt="home" data-toggle="tooltip"
+                        data-placement="top" title="Home">
                     <span class="sidenav-item-span text-light display-6">Home</span>
                 </a>
             </div>
             <div class="sidenav-item">
-                <a href="http://127.0.0.1:8000/vloggercafe/profile/">
-                    <img class="sidenav-item-img" src="{% static 'images/profile.ico' %}" alt="Profile" data-toggle="tooltip" data-placement="top" title="Profile">
+                <a href="/vloggercafe/profile/">
+                    <img class="sidenav-item-img" src="{% static 'images/profile.ico' %}" alt="Profile"
+                        data-toggle="tooltip" data-placement="top" title="Profile">
                     <span class="sidenav-item-span text-light display-6">Profile</span>
                 </a>
             </div>
             <div class="sidenav-item">
                 <a href="#">
-                    <img class="sidenav-item-img" src="{% static 'images/about.ico' %}" alt="About" data-toggle="tooltip" data-placement="top" title="About">
+                    <img class="sidenav-item-img" src="{% static 'images/about.ico' %}" alt="About"
+                        data-toggle="tooltip" data-placement="top" title="About">
                     <span class="sidenav-item-span text-light display-6">About</span>
                 </a>
             </div>
             <div class="sidenav-item">
                 <a href="#">
-                    <img class="sidenav-item-img" src="{% static 'images/saved.ico' %}" alt="Saved" data-toggle="tooltip" data-placement="top" title="Saved">
+                    <img class="sidenav-item-img" src="{% static 'images/saved.ico' %}" alt="Saved"
+                        data-toggle="tooltip" data-placement="top" title="Saved">
                     <span class="sidenav-item-span text-light display-6">Saved</span>
                 </a>
             </div>
@@ -77,18 +81,18 @@
             <div class="main-content-body" tabindex="0">
                 <span class="text-light" style="margin: 0.5% 2%;width:96%">My profile settings</span>
                 <div class="my-profile-settings card bg-dark">
-                   <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">
                             <div class="mb-3">
-                                <label for="myprofilepic" class="text-muted mb-2">Upload your profile picture</label>
+                                <label for="myprofilepic" class="text-muted mb-2">Update your profile picture</label>
                                 {{fm2.myprofilepic}}
                             </div>
                             <div class="mb-3">
                                 <input type="submit" name="edit" value="Edit &#9998;" class="btn btn-outline-secondary">
                             </div>
                         </div>
-                   </form>
+                    </form>
                 </div>
                 <span class="text-light" style="margin: 0.5% 2%;width:96%">Publish a new video</span>
                 <div class="file-upload-fm card bg-dark">
@@ -113,7 +117,8 @@
                                 {{form.video_thumbnail}}
                             </div>
                             <div class="mb-3">
-                                <input type="submit" value="&#8593; Upload" name="upload" class="btn btn-outline-secondary">
+                                <input type="submit" value="&#8593; Upload" name="upload"
+                                    class="btn btn-outline-secondary">
                             </div>
                         </div>
                     </form>
@@ -121,25 +126,29 @@
                 <span class="text-light" style="margin: 0.5% 2%;width:96%">Uploaded videos</span>
                 <div class="uploaded-media bg-dark">
                     {% for videos in video_record %}
-                        <div class="latest-upload">
-                            <video 
-                            controls
-                            poster="{{videos.video_thumbnail.url}}"
-                            >
-                                <source src="{{videos.video_filename.url}}" type="video/mp4">
-                            </video>
-                        </div>
+                    <div class="latest-upload">
+                        <video controls poster="{{videos.video_thumbnail.url}}">
+                            <source src="{{videos.video_filename.url}}" type="video/mp4">
+                        </video>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
     <footer>
+        {% if location.city %}
         <span class="text-muted">&#8226; Location - {{location.city}},{{location.countryCode}}</span>
+        <span class="text-primary" style="font-size: 12px;">Made by Subarna Bhowmik</span>
+        {% else %}
+        <span class="text-muted">&#8226; Unable to find your location</span>
+        <span class="text-primary" style="font-size: 12px;">Made by Subarna Bhowmik</span>
+        {% endif %}
     </footer>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
 </body>
+
 </html>

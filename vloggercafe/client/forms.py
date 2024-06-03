@@ -1,5 +1,5 @@
 from django import forms
-from .models import MasterVideoRecord,UserSignUp,MyProfile
+from client.models import MasterVideoRecord,UserSignUp,MyProfile
 
 class FileUpload(forms.ModelForm):
     class Meta:

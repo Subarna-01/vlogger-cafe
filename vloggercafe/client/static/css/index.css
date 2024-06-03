@@ -93,14 +93,14 @@ header span {
     border-radius: 5px;
 }
 .user-profile-pic {
-    height: 50px;
-    width: 50px;
+    height: 65px;
+    width: 65px;
     margin: auto;
-    border-radius: 25px;
+    border-radius: 35px;
 }
 .user-profile-pic-resize {
-    height: 35px;
-    width: 35px;
+    height: 45px;
+    width: 45px;
     border-radius: 17.5px;
 }
 .user-profile-pic img {
@@ -217,12 +217,12 @@ form {
     height: 22.5px;
     width: 22.5px;
     margin: auto;
-    transition: 700ms linear;
+    /* transition: 700ms linear; */
 }
-#search-icon:hover {
+/* #search-icon:hover {
     transform: rotate(360deg);
     cursor: pointer;
-}
+} */
 .main-content-body {
     height: 87%;
     width: 99%;
@@ -264,9 +264,9 @@ form {
     background-color: #3d3d3f; 
 }
 footer {
-    height: 5vh;
+    height: 6vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 footer span {
     margin: auto;

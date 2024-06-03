@@ -4,8 +4,8 @@ import requests
 import json
 import uuid
 import hashlib
-from .forms import FileUpload,SignUp,SignIn,MyProfileSettings,Search
-from .models import MasterVideoRecord,UserSignUp,MyProfile
+from client.forms import FileUpload,SignUp,SignIn,MyProfileSettings,Search
+from client.models import MasterVideoRecord,UserSignUp,MyProfile
 from django.http import HttpResponseRedirect
 from datetime import date
 
@@ -61,11 +61,21 @@ def getProfile(request):
                     register.save()
 
             elif "edit" in request.POST:
-                fm2 = MyProfileSettings(request.POST,request.FILES)
+                fm2 = MyProfileSettings(request.POST, request.FILES)
                 if fm2.is_valid():
                     user_id = request.session["user_id"]
                     myprofilepic = fm2.cleaned_data["myprofilepic"]
-                    profile_update = MyProfile(user_id=user_id,myprofilepic=myprofilepic)
+            
+                    try:
+                        profile_update = MyProfile.objects.get(user_id=user_id)
+                    except MyProfile.DoesNotExist:
+                        profile_update = None
+                    
+                    if profile_update:
+                        profile_update.myprofilepic = myprofilepic
+                    else:
+                        profile_update = MyProfile(user_id=user_id, myprofilepic=myprofilepic)
+                    
                     profile_update.save()
         
         fm = FileUpload()
@@ -126,17 +136,17 @@ def getClientIPAddress(request):
     client_ip,is_routable = get_client_ip(request)
     if client_ip is None:
         client_ip = "0.0.0.0"
+        ip_type = "unknown"
     else:
         if is_routable:
             ip_type = "public"
         else:
             ip_type = "private"
-    client_ip = "24.48.0.1"
-    return client_ip
+    return client_ip,ip_type
 
 
 def getClientLoc(request):
-    ip_addr = getClientIPAddress(request)
+    ip_addr,_ = getClientIPAddress(request)
     res = requests.get(f"http://ip-api.com/json/{ip_addr}")
     location = json.loads(res.text)
     return location
